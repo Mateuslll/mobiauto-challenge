@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+
 @Data
 @Entity
 public class Usuario {
@@ -21,6 +23,14 @@ public class Usuario {
     private String password;
 
     private String cargo;
+
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_revenda",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "revenda_id")
+    )
+    private Set<Revenda> revendas;
 
 
     @OneToMany(mappedBy = "responsavel")

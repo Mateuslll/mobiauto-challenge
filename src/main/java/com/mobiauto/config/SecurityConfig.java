@@ -22,7 +22,11 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.anyRequest().authenticated()
+                        authorizeRequests
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/proprietario/**").hasAnyRole("PROPRIETARIO", "ADMIN")
+                                .requestMatchers("/assistente/**").hasAnyRole("ASSISTENTE", "PROPRIETARIO", "ADMIN")
+                                .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasicCustomizer ->
                         httpBasicCustomizer.authenticationEntryPoint(authenticationEntryPoint())
@@ -44,7 +48,26 @@ public class SecurityConfig {
                 .password(passwordEncoder().encode("password"))
                 .roles("USER")
                 .build();
-        return new InMemoryUserDetailsManager(user);
+
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder().encode("adminpassword"))
+                .roles("ADMIN")
+                .build();
+
+        UserDetails proprietario = User.builder()
+                .username("proprietario")
+                .password(passwordEncoder().encode("proprietariopassword"))
+                .roles("PROPRIETARIO")
+                .build();
+
+        UserDetails assistente = User.builder()
+                .username("assistente")
+                .password(passwordEncoder().encode("assistente"))
+                .roles("ASSISTENTE")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin, proprietario, assistente);
     }
 
     @Bean
