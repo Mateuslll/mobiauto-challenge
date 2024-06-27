@@ -29,6 +29,11 @@ Esta API é parte do sistema Mobiauto, permitindo a gestão de revendas de veíc
    ```bash
    git clone <URL_do_repositório>
 
+## Configurar o Banco de Dados PostgreSQL
+
+- Instale o PostgreSQL e crie um banco de dados vazio.
+- Configure as credenciais do banco de dados no arquivo application.properties.
+- Compilar e Executar o Projeto
    
 2. **Configurar o Banco de Dados PostgreSQL**
 
@@ -48,16 +53,90 @@ A aplicação utiliza autenticação básica HTTP. Para acessar a API, use as se
 - **Usuário:** `user`
 - **Senha:** `password`
 
+Para interagir com a API, você pode usar o Postman ou qualquer outro cliente de API.
+
+Configurar Autenticação no Postman
+- Abra o Postman.
+- Vá para a aba "Authorization".
+- Selecione "Basic Auth".
+- Insira o usuário (user) e a senha (password).
+- Agora você pode fazer requisições para a API utilizando os endpoints listados abaixo.
+
 A documentação Swagger também requer autenticação. Acesse-a em [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) e insira as credenciais acima.
 
 - A API pode ser acessada em `http://localhost:8080`. 
 - A documentação do Swagger pode ser visualizada em `http://localhost:8080/swagger-ui.html`.
 
-## Configurar o Banco de Dados PostgreSQL
+# Endpoints da API
 
-- Instale o PostgreSQL e crie um banco de dados vazio.
-- Configure as credenciais do banco de dados no arquivo application.properties.
-- Compilar e Executar o Projeto
+## Revendas
+
+### Use this endpoint to List All Revendas
+
+#### Endpoint
+```bash
+$GET http://localhost:8080/revendas/
+```
+### Criar uma Nova Revenda
+```bash
+$POST http://localhost:8080/revendas/
+{
+  "cnpj": "12345678000195",
+  "nomeSocial": "Revenda XYZ"
+}
+```
+### Atualizar uma Revenda Existente
+
+```bash
+ PUT /revendas/{id}
+{
+  "cnpj": "12345678000195",
+  "nomeSocial": "Nova Revenda XYZ"
+}
+ ```
+## Oportunidades
+### Listar Todas as Oportunidades de uma Revenda
+```bash
+GET /revendas/{id}/oportunidades/
+ ```
+### Criar uma Nova Oportunidade
+```bash
+POST /revendas/{id}/oportunidades/
+{
+  "codigo": "OPP-001",
+  "status": "novo",
+  "motivoConclusao": null,
+  "clienteNome": "João da Silva",
+  "clienteEmail": "joao.silva@example.com",
+  "clienteTelefone": "(11) 99999-9999",
+  "veiculoMarca": "Chevrolet",
+  "veiculoModelo": "Onix",
+  "veiculoVersao": "LT",
+  "veiculoAnoModelo": 2023
+}
+ ```
+### Atualizar uma Oportunidade Existente
+```bash
+PUT /revendas/{id}/oportunidades/{idOportunidade}
+{
+  "codigo": "OPP-001",
+  "status": "em_atendimento",
+  "motivoConclusao": null,
+  "clienteNome": "João da Silva",
+  "clienteEmail": "joao.silva@example.com",
+  "clienteTelefone": "(11) 99999-9999",
+  "veiculoMarca": "Chevrolet",
+  "veiculoModelo": "Onix",
+  "veiculoVersao": "LT",
+  "veiculoAnoModelo": 2023
+}
+```
+### Excluir uma Oportunidade
+```bash
+ DELETE /revendas/{id}/oportunidades/{idOportunidade}
+```
+
+#### Os demais endpoints podem ser encontrados na documentação Acesse-a em [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 # Requisitos Implementados
 
@@ -91,7 +170,7 @@ A documentação Swagger também requer autenticação. Acesse-a em [http://loca
 
 # Ações Concluídas
 
-- Configuração básica de segurança com autenticação HTTP Basic.
+- Configuração de segurança com autenticação HTTP Basic.
 - Implementação dos serviços e repositórios necessários para revendas, usuários e oportunidades.
 - Desenvolvimento de DTOs para comunicação entre camadas e validação de entrada.
 - Implementação de mapeamentos entre DTOs e entidades para persistência e resposta.
