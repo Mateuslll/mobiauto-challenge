@@ -71,7 +71,7 @@ A documentação Swagger também requer autenticação. Acesse-a em [http://loca
 
 ## Revendas
 
-### Use this endpoint to List All Revendas
+### Use este endpoints para listar todas as Revendas
 
 #### Endpoint
 ```bash
