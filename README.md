@@ -174,3 +174,32 @@ PUT /revendas/{id}/oportunidades/{idOportunidade}
 - Implementação dos serviços e repositórios necessários para revendas, usuários e oportunidades.
 - Desenvolvimento de DTOs para comunicação entre camadas e validação de entrada.
 - Implementação de mapeamentos entre DTOs e entidades para persistência e resposta.
+
+# Fluxo do Sistema
+
+## Usuários:
+
+- Usuários podem se registrar no sistema através do endpoint de criação de usuários.
+- Administradores podem gerenciar usuários (criar, atualizar, deletar) e atribuir diferentes papéis aos usuários.
+
+## Clientes:
+
+- Clientes são registrados no sistema através do endpoint de criação de clientes.
+- Usuários podem listar, atualizar e deletar clientes conforme necessário.
+
+ ## Revendas:
+
+- Revendas são registradas no sistema através do endpoint de criação de revendas.
+- Usuários podem listar, atualizar e deletar revendas conforme necessário.
+
+## Veículos:
+
+- Veículos são registrados no sistema através do endpoint de criação de veículos.
+- Usuários podem listar, atualizar e deletar veículos conforme necessário.
+
+## Oportunidades:
+
+- Oportunidades são registradas no sistema através do endpoint de criação de oportunidades.
+- Cada oportunidade está associada a um cliente, um veículo e um usuário responsável.
+- Usuários podem listar, atualizar e deletar oportunidades conforme necessário.
+- O status das oportunidades pode ser atualizado para refletir o progresso (por exemplo, aberta, fechada).
